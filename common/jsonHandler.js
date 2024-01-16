@@ -1,16 +1,26 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 
 // JSON 파일 읽기 함수
-export async function readJson() {
-  const dataPath = path.join(process.cwd(), '/db/character.json'); // data.json 파일 경로
-  const fileData = await fs.promises.readFile(dataPath, 'utf8'); // 비동기적으로 파일 읽기
-  const data = JSON.parse(fileData); // JSON 파싱
-  return data;
+export async function readJson(filePath) {
+  try {
+    const dataPath = path.join(process.cwd(), filePath);
+    const fileData = await fs.readFile(dataPath, 'utf8');
+    const data = JSON.parse(fileData);
+    return data;
+  } catch (error) {
+    console.error(`Error reading JSON file: ${error.message}`);
+    throw error;
+  }
 }
 
 // JSON 파일 쓰기 함수
-export async function writeJson(newData) {
-  const dataPath = path.join(process.cwd(), '/db/character.json'); // data.json 파일 경로
-  await fs.promises.writeFile(dataPath, JSON.stringify(newData, null, 2)); // 비동기적으로 파일 쓰기
+export async function writeJson(filePath, newData) {
+  try {
+    const dataPath = path.join(process.cwd(), filePath);
+    await fs.writeFile(dataPath, JSON.stringify(newData, null, 2));
+  } catch (error) {
+    console.error(`Error writing JSON file: ${error.message}`);
+    throw error;
+  }
 }

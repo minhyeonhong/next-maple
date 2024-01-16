@@ -1,14 +1,23 @@
-import fs from 'fs';
-import path from 'path';
+import { readJson, writeJson } from '@/common/jsonHandler';
+import { NextResponse } from 'next/server';
+import { JSONFilePreset } from 'lowdb/node'
 
-export async function post(req, res) {
-  const dataPath = path.join(process.cwd(), '/db/character.json'); // data.json 파일 경로
 
-  console.log("req",req);
-  const data = { message: 'Hello, World!' }; // 쓸 데이터
+export async function POST(req) {
+  // const request = await req.json();  
 
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); // 동기적으로 파일 쓰기
+  // console.log('request', request);
+  // await writeJson('/db/character.json',request);
+  // const db = await readJson('/db/character.json');
+  // console.log('db',db);
+  // Read or create db.json
+  const defaultData = { test: [] }
+  const db = await JSONFilePreset('/db/jsons/character.json', defaultData)
+  db.data.test.push('tttttt');
+  await db.write();
+  console.log("t", db.data);
 
-  return res.status(200).json({ message: 'Data written successfully' }); // 성공 메시지 응답으로 전송
+
+  return NextResponse.json({ message: 'Data written successfully' }); // 성공 메시지 응답으로 전송
 }
 

@@ -104,7 +104,7 @@ const Character = () => {
   }
 
   const test = async () => {
-    const result = await axios.post('/api/write', { test: 'test' });
+    const result = await axios.post('/api/characters', { test: 'test' });
     console.log("result", result);
   }
 
