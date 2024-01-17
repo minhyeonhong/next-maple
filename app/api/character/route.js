@@ -4,10 +4,10 @@ import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
 import path from 'path';
 
 // db 디렉토리 안에 character.json 파일을 지정한 경로에 저장
-const dbPath = path.resolve( 'db', 'character.json');
+const dbPath = path.resolve('db');
 
 // 지정된 구성으로 JsonDB 인스턴스를 만듭니다
-const db = new JsonDB(new Config('/db/character', true, false, '/'),dbPath);
+const db = new JsonDB(new Config(`${dbPath}/character`, true, false, '/'));
 
 // // // 예시 데이터
 // // const characterData = { today: "2024-01-17", test: "test" };
@@ -29,8 +29,8 @@ const getStaticProps = async () => {
     const newData = { name: 'John Doe', level: 10 };
 
     // 데이터 추가
-    db.push('/db/character', newData);
-    const data = db.getData('/db/character');
+    db.push('/character', newData);
+    const data = db.getData('/character');
 
     return data;
 };
