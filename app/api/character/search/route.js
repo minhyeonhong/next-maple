@@ -1,16 +1,15 @@
-import { readJson, writeJson } from '@/common/jsonHandler';
 import { NextResponse } from 'next/server';
-import { JSONFilePreset } from 'lowdb/node';
-const db = await JSONFilePreset('/db/characters.json', { characters: [] });
+import { getDB2 } from '@/common/jsonDB';
 
 export async function POST(req) {
-  const request = await req.json();  
+  const request = await req.json();
   // characters 배열을 초기화
-  console.log("ddddd11111111",filePath);
-   await db.update(({ characters }) => characters.push('hello world'));
+  const db = await getDB2('characters');
+  console.log("ddddd11111111", request);
+  //await db.update(({ characters }) => characters.push());
   // db.data.characters.push('hello world')
   // await db.write();
-  console.log("db",db.data);
+  console.log("db:", db.data);
 
   // let existingData = [];
   // try {
