@@ -18,7 +18,7 @@ const Character = () => {
       alert('캐릭터명을 입력해 주세요.');
     }
 
-    const result = await axios.post('/api/character', {character_name});
+    const result = await axios.post('/api/character/search', {character_name});
     console.log('res',result);
     //const result = await axios.post('/api/character/search', {character_name});
     
