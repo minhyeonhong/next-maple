@@ -4,24 +4,17 @@ import lodash from 'lodash'
 
 const dbPath = path.resolve('db');
 
-const getDB = async (table) => {
-    return await JSONFilePreset(`${dbPath}/${table}.json`, { [table]: [] });
-}
-
 class LowDB {
-    constructor(dbName) {
-        this.dbName = dbName;
-        this.db = this.initializeDB();
+    constructor(jsonName, defaultData) {
+        this.db = this.initializeDB(jsonName, defaultData);
     }
 
-    async initializeDB() {
-        const defaultValue = { [this.dbName]: [] };
-        const db = await JSONFilePreset(`${dbPath}/${this.dbName}.json`, defaultValue);
-        return db;
+    async initializeDB(jsonName, defaultData) {
+        return await JSONFilePreset(`${dbPath}/${jsonName}.json`, defaultData);
     }
 
-    async initializeTable() {
-        return this.db.data[this.dbName];
+    async getTable(table) {
+        return (await this.db).data[table];
     }
 
     async findLowField(findField, findValue) {
@@ -31,4 +24,4 @@ class LowDB {
 }
 
 
-export { getDB, LowDB }
+export { LowDB }
