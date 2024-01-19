@@ -1,6 +1,5 @@
-import { JSONFilePreset, JSONFile } from 'lowdb/node';
+import { JSONFilePreset } from 'lowdb/node';
 import path from 'path';
-import { Low } from 'lowdb'
 import lodash from 'lodash'
 
 const dbPath = path.resolve('db');
@@ -9,18 +8,27 @@ const getDB = async (table) => {
     return await JSONFilePreset(`${dbPath}/${table}.json`, { [table]: [] });
 }
 
-class LowWithLodash extends Low {
-    constructor(adapter) {
-        super(adapter);
-        this.chain = lodash.chain(this).get('data');
+class LowDB {
+    constructor(dbName) {
+        this.dbName = dbName;
+        this.db = this.initializeDB();
+    }
+
+    async initializeDB() {
+        const defaultValue = { [this.dbName]: [] };
+        const db = await JSONFilePreset(`${dbPath}/${this.dbName}.json`, defaultValue);
+        return db;
+    }
+
+    async initializeTable() {
+        return this.db.data[this.dbName];
+    }
+
+    async findLowField(findField, findValue) {
+        const table = await getTable();
+        return table.find((field) => field[findField] === findValue);
     }
 }
 
-const getDB2 = async (table) => {
-    const adapter = new JSONFile(`${dbPath}/${table}.json`, { [table]: [] });
-    const test = await JSONFilePreset(`${dbPath}/${table}.json`, { [table]: [] });
-    console.log("-------", test);
-    return new LowWithLodash(test);
-}
 
-export { getDB, getDB2 }
+export { getDB, LowDB }

@@ -1,15 +1,28 @@
 import { NextResponse } from 'next/server';
-import { getDB2 } from '@/common/jsonDB';
+import { getDB, LowDB } from '@/common/jsonDB';
+import { get_character_info } from '@/services/CharacterService';
+import { today } from '@/common/date';
 
 export async function POST(req) {
   const request = await req.json();
   // characters 배열을 초기화
-  const db = await getDB2('characters');
-  console.log("ddddd11111111", request);
+  const characters = await getDB('characters');
+  const lowdb = new LowDB('characters');
+  const dd = await lowdb.getDB();
+
+  console.log("lowdblowdblowdblowdblowdb",dd);
+
+  if(!characters.length) {
+    console.log("ddddd11111111", request);
+    //const character = get_character_info(request.character_name);
+  } else {
+    console.log("db:", characters.length);
+  }
+  
   //await db.update(({ characters }) => characters.push());
   // db.data.characters.push('hello world')
   // await db.write();
-  console.log("db:", db.data);
+  
 
   // let existingData = [];
   // try {
