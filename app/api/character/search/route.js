@@ -7,20 +7,35 @@ export async function POST(req) {
 
   const request = await req.json();
   // characters 배열을 초기화
-  const lowdb = new LowDB('characters',{characters:[]});
+  const lowdb = new LowDB('characters', { characters: [] });
   //await lowdb.db.update(({ posts }) => posts.push('hello world'))
 
   const table = await lowdb.getTable('characters');
-  console.log("lowdblowdblowdblowdblowdb", table);
+  console.log("table length", table);
+  console.log("request.character_name", request.character_name);
 
-  // if(!characters.length) {
-  //   console.log("ddddd11111111", request);
-  //   //const character = get_character_info(request.character_name);
-  // } else {
-  //   console.log("db:", characters.length);
-  // }
+  if (table.length > 0) {
+    const getChracter = await lowdb.findLowField('character_name', request.character_name);
+    console.log('getChracter', getChracter);
 
-  //await db.update(({ characters }) => characters.push());
+  } else {
+    console.log("여긴 왔지? ");
+    //const character = await get_character_info(request.character_name);
+
+    const result = await lowdb.createField('characters', {
+      today,
+      character_name: request.character_name,
+      ocid: 123,
+    });
+
+    console.log("result :", result);
+  }
+
+
+
+
+
+
   // db.data.characters.push('hello world')
   // await db.write();
 

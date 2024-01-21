@@ -18,8 +18,17 @@ class LowDB {
     }
 
     async findLowField(findField, findValue) {
-        const table = await getTable();
-        return table.find((field) => field[findField] === findValue);
+        return (await this.db).data['characters'].find((item) => item[findField] === findValue);
+    }
+
+    async createField(table, item) {
+        try {
+            (await this.db).data[table].push(item);
+            (await this.db).write();
+        } catch (error) {
+            console.log('createField error :', error);
+        }
+
     }
 }
 
