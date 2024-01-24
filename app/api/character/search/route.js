@@ -1,32 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-//import { LowDB } from '@/common/jsonDB';
+import { LowDB } from '@/common/jsonDB';
 import { api_maple_character_info } from '@/services/CharacterService';
 import { today, isToday } from '@/common/date';
 
-import { JSONFile } from 'lowdb/node';
-import { Low } from 'lowdb';
-import path from 'path';
-import lodash from 'lodash'
+// import { JSONFile } from 'lowdb/node';
+// import { Low } from 'lowdb';
+//import path from 'path';
+//import lodash from 'lodash'
 
-class LowWithLodash extends Low {
-  constructor(adapter) {
-    super(adapter, { [Object.keys(adapter)[0]]: [] });
-    this.chain = lodash.chain(this).get('data');
-  }
-}
+// class LowWithLodash extends Low {
+//   constructor(adapter) {
+//     super(adapter, { [Object.keys(adapter)[0]]: [] });
+//     this.chain = lodash.chain(this).get('data');
+//   }
+// }
 
 export async function POST(req) {
 
   const request = await req.json();
-  const dbPath = path.resolve('db');
+  //const dbPath = path.resolve('db');
   const lowdb = new LowDB('characters', { characters: [] });
 
-  const adapter = new JSONFile(`${dbPath}/characters.json`, { characters: [] });
+  // const adapter = new JSONFile(`${dbPath}/characters.json`, { characters: [] });
 
-  const db = new LowWithLodash(adapter);
-  await db.read();
+  // const db = new LowWithLodash(adapter);
+  // await db.read();
 
-  console.log('lowdb @@', db.data);
+  const r = await lowdb.db;
+
+  console.log('lowdb @@', r.chain.get('characters').find({ character_name: '푸하아앙잉' }).value());
 
   // const table = await lowdb.table;
 

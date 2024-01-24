@@ -14,8 +14,15 @@ class LowWithLodash extends Low {
 
 class LowDB {
     constructor(jsonName, defaultData) {
-        const adapter = new JSONFile(`${dbPath}/${jsonName}.json`, defaultData);
-        this.db = new LowWithLodash(adapter);
+        this.adapter = new JSONFile(`${dbPath}/${jsonName}.json`, defaultData);
+        this.db = this.dbReady();
+    }
+
+    async dbReady() {
+        const db = new LowWithLodash(this.adapter);
+        console.log('aas', this.adapter);
+        await db.read();
+        return db;
     }
 
     // constructor(jsonName, defaultData) {
