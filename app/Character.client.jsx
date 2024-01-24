@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { maple } from "@/axios/maple";
 import { today, todayPluse } from '../common/date';
 import axios from "axios";
-import { get_character_info } from "@/services/CharacterService";
+import { api_maple_character_info } from "@/services/CharacterService";
 
 const Character = () => {
   
@@ -25,7 +25,7 @@ const Character = () => {
   }
 
   const rr = async () => {
-    const result = await get_character_info(search.character_name);
+    const result = await api_maple_character_info(search.character_name);
     console.log("result", result);
   }
 

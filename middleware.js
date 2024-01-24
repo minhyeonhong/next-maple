@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "http://localhost:7000",

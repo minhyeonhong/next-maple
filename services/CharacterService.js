@@ -42,10 +42,11 @@ const skillOptions = [
     '6',
 ];
 
-const get_character_info = async (character_name) => {
+const api_maple_character_info = async (character_name) => {
     const two_days_ago = todayPluse(-2);
     //오늘 날짜를 불러오면 에러나서 2이전 날짜로
 
+    //캐릭터 명으로 ocid 받아오기
     const response = await maple.get(`${process.env.NEXT_PUBLIC_MAPLE_BASE_URL}/maplestory/v1/id?character_name=${character_name}`, {
         headers: {
             "x-nxopen-api-key": process.env.NEXT_PUBLIC_MAPLE_KEY
@@ -56,9 +57,10 @@ const get_character_info = async (character_name) => {
         alert('캐릭터 정보 없음');
         return;
     }
-
+    
     const ocid = response.data.ocid;
 
+    //캐릭터에 필요한 정보들 받아오기
     const promises = endpoints.map(endpoint => {
         if (endpoint === 'skill') {
             const skillPromises = skillOptions.map(skillOption =>
@@ -80,6 +82,7 @@ const get_character_info = async (character_name) => {
 
     const results = await Promise.all(promises);
 
+    //받아온 스킬정보 데이터 재설정
     const resultObjects = results.map((result, index) => {
         const key = endpoints[index];
         const value = (key === 'skill')
@@ -99,4 +102,4 @@ const get_character_info = async (character_name) => {
     };
 }
 
-export { get_character_info }
+export { api_maple_character_info }

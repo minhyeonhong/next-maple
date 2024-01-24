@@ -16,5 +16,9 @@ const todayPluse = (day) => {
     return date.toISOString().slice(0, 10);
 }
 
+const isToday = (compareDay) => {
+    return today === compareDay;
+}
 
-export { today, year, month, day, todayPluse };
+
+export { today, year, month, day, todayPluse, isToday };
