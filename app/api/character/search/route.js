@@ -1,38 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { LowDB } from '@/common/jsonDB';
+import { NextResponse } from 'next/server';
+import { LowDB } from '@/common/LowDB';
 import { api_maple_character_info } from '@/services/CharacterService';
 import { today, isToday } from '@/common/date';
-
-// import { JSONFile } from 'lowdb/node';
-// import { Low } from 'lowdb';
-//import path from 'path';
-//import lodash from 'lodash'
-
-// class LowWithLodash extends Low {
-//   constructor(adapter) {
-//     super(adapter, { [Object.keys(adapter)[0]]: [] });
-//     this.chain = lodash.chain(this).get('data');
-//   }
-// }
+import _ from 'lodash'
 
 export async function POST(req) {
 
   const request = await req.json();
-  //const dbPath = path.resolve('db');
-  const lowdb = new LowDB('characters', { characters: [] });
+  const lowdb = new LowDB('characters', 'characters');
 
-  // const adapter = new JSONFile(`${dbPath}/characters.json`, { characters: [] });
+  //await lowdb.updateField('ocid',1234,{ today: '2024-01-23', character_name: '푸하아앙잉', ocid: 321 });
+  const r = await lowdb.allField();
+  console.log(r);
+  console.log('================');
+  const sort = _.orderBy(r,['character_name'],['asc']);
 
-  // const db = new LowWithLodash(adapter);
-  // await db.read();
 
-  const r = await lowdb.db;
+  console.log(sort);
 
-  console.log('lowdb @@', r.chain.get('characters').find({ character_name: '푸하아앙잉' }).value());
-
-  // const table = await lowdb.table;
-
-  // let resultCharacter = {};
 
   // if (table.length > 0) {
   //   const dbCharacter = await lowdb.findLowField('character_name', '이상한');
