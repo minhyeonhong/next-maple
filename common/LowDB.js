@@ -1,6 +1,7 @@
 import { JSONFilePreset } from 'lowdb/node';
 import path from 'path';
 import _ from 'lodash';
+import { binarySearch } from './binarySearch';
 
 const dbPath = path.resolve('db');
 
@@ -19,12 +20,12 @@ class LowDB {
     }
 
     async findLowField(key, value) {
-        return (await this.table).find((field) => field[key] === value);
+        return binarySearch((await this.table), key, value);
     }
 
     async createField(data) {
         try {
-            (await this.table).push({ id: _.uniqueId(), ...data });
+            (await this.table).push({ pk: _.uniqueId(), ...data });
             (await this.db).write();
             return true;
         } catch (error) {
@@ -33,9 +34,12 @@ class LowDB {
         }
     }
 
-    async updateField(item) {
+    async updateField(targetKey, targetValue, newData) {
         try {
-    
+            const table = (await this.table);
+            const field = binarySearch(table, targetKey, targetValue);
+            table[field.index] = newData;
+            (await this.db).write();
             return true;
         } catch (error) {
             console.log('createField error :', error);
@@ -43,9 +47,12 @@ class LowDB {
         }
     }
 
-    async deleteField(item) {
+    async deleteField(targetKey, targetValue) {
         try {
-       
+            const table = (await this.table);
+            const field = binarySearch(table, targetKey, targetValue);
+            table.splice(field.index, 1);
+            (await this.db).write();
             return true;
         } catch (error) {
             console.log('createField error :', error);
@@ -53,18 +60,5 @@ class LowDB {
         }
     }
 }
-
-function objectArrayBinarySearch(array, targetKey, targetValue) {
-
-    const sortArray = _.orderBy(array, [targetKey], ['asc']);
-
-    const index = _.sortedIndexBy(sortArray, { [targetKey]: targetValue }, targetKey);
-    
-    if (sortArray[index] && sortArray[index][targetKey] === targetValue) {
-      return sortArray[index];
-    }
-  
-    return null;
-  }
 
 export { LowDB }
