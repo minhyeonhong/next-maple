@@ -1,5 +1,5 @@
 import './globals.css'
-import Layout from "@/components/Layout.client";
+import Layout from "@/components/layouts/Layout.client";
 
 export const metadata = {
   title: 'maple',
