@@ -1,0 +1,15 @@
+.desktop-layout {
+    background-color: pink;
+    /* 추가적인 데스크탑 스타일 */
+  }
+  
+  .tablet-layout {
+    background-color: orange;
+    /* 추가적인 태블릿 스타일 */
+  }
+  
+  .mobile-layout {
+    background-color: rgb(0, 128, 85);
+    /* 추가적인 모바일 스타일 */
+  }
+  
