@@ -22,9 +22,9 @@ const Layout = ({ children }) => {
     return (
         <>
         {/* {type.desktop && <div style={{ width: '100%', height: `${100 * vh}px`}} className={styles['desktop-layout']}>desktop{children}</div>} */}
-            {type.desktop && <Desktop style={{ width: '100%', height: `${100 * vh}px`}} >{children}</Desktop>}
-            {type.tablet  && <Tablet style={{ width: '100%', height: `${100 * vh}px`}} >{children}</Tablet>}
-            {type.mobile  && <Mobile style={{ width: '100%', height: `${100 * vh}px`}} >{children}</Mobile>}
+            {type.desktop && <Desktop vh={100 * vh} >{children}</Desktop>}
+            {type.tablet  && <Tablet vh={100 * vh} >{children}</Tablet>}
+            {type.mobile  && <Mobile vh={100 * vh} >{children}</Mobile>}
         </>
     );
 };
