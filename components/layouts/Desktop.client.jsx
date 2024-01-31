@@ -2,6 +2,9 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import HomeSVG from '@/public/assets/footer/home.svg';
+import AverageSVG from '@/public/assets/footer/average.svg';
+import FavoritesSVG from '@/public/assets/footer/favorites.svg';
+import LankingSVG from '@/public/assets/footer/lanking.svg';
 
 const Desktop = ({ vh, children }) => {
     const pathname = usePathname();
@@ -16,13 +19,28 @@ const Desktop = ({ vh, children }) => {
                         className="px-[2%] pb-[2%] h-[10%] grid grid-cols-4 bg-[#FFF]">
                         <Link href="/">
                             <div style={{ borderTop: `${pathname === '/' && '2px solid var(--Point, #FF951A)'}` }}>
-                                <HomeSVG color={pathname === '/' ? '#22211F' : '#B6B6B6'}></HomeSVG>
+                                <HomeSVG color={pathname === '/' ? '#22211F' : '#B6B6B6'} />
                                 홈
                             </div>
                         </Link>
-                        <div className=" bg-red-200">평균</div>
-                        <div className=" bg-blue-200">랭킹</div>
-                        <div className=" bg-green-200">즐겨찾기</div>
+                        <Link href="/average">
+                            <div style={{ borderTop: `${pathname === '/average' && '2px solid var(--Point, #FF951A)'}` }}>
+                                <AverageSVG color={pathname === '/average' ? '#22211F' : '#B6B6B6'} />
+                                평균
+                            </div>
+                        </Link>
+                        <Link href="/favorites">
+                            <div style={{ borderTop: `${pathname === '/favorites' && '2px solid var(--Point, #FF951A)'}` }}>
+                                <FavoritesSVG color={pathname === '/favorites' ? '#22211F' : '#B6B6B6'} />
+                                랭킹
+                            </div>
+                        </Link>
+                        <Link href="/lank">
+                            <div style={{ borderTop: `${pathname === '/lank' && '2px solid var(--Point, #FF951A)'}` }}>
+                                <LankingSVG color={pathname === '/lank' ? '#22211F' : '#B6B6B6'} />
+                                즐겨찾기
+                            </div>
+                        </Link>
                     </footer>
                 </wrap>
             </div>

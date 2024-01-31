@@ -40,11 +40,11 @@ const Character = () => {
   }, [character])
 
   return (
-    <div>
+    <>
       <input type='text' name='character_name' />
       <button onClick={searchCharacter}>캐릭터 정보 가져오기</button><br />
       <button onClick={test}>test</button>
-    </div>
+    </>
   );
 };
 
