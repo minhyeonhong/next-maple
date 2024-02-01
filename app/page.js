@@ -1,4 +1,4 @@
-import Character from "./Character.client";
+import Character from "../components/characters/Character.client";
 
 
 export default function Home() {
