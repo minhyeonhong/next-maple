@@ -1,5 +1,6 @@
 import './globals.css'
 import Layout from "@/components/layouts/Layout.client";
+import ReactQueryProviders from '@/components/providers/ReactQueryProviders.client';
 
 export const metadata = {
   title: 'maple',
@@ -10,7 +11,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="font-['LINESeedKR-Rg']">
-        <Layout>{children}</Layout>
+        <ReactQueryProviders>
+          <Layout>{children}</Layout>
+        </ReactQueryProviders>
       </body>
     </html>
   )
