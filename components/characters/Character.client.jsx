@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { maple } from "@/axios/maple";
-import { today, todayPluse } from '../common/date';
+import { today, todayPluse } from '../../common/date';
 import axios from "axios";
 import { app } from '@/axios/app';
 import { api_maple_character_info } from "@/services/CharacterService";
@@ -25,26 +25,24 @@ const Character = () => {
 
   }
 
-  const rr = async () => {
-    const result = await api_maple_character_info(search.character_name);
-    console.log("result", result);
-  }
-
-  const test = async () => {
-    const result = await axios.post('/api/search/character', character);
-    console.log("character", character);
-  }
 
   useEffect(() => {
     console.log(character);
   }, [character])
 
   return (
-    <>
-      <input type='text' name='character_name' />
-      <button onClick={searchCharacter}>캐릭터 정보 가져오기</button><br />
-      <button onClick={test}>test</button>
-    </>
+    <div className="h-[100%] grid grid-rows-4">
+      <div className="row-span-1 flex justify-center bg-red-100 ">
+        로고
+      </div>
+      <div className="row-span-1 bg-blue-100">
+        <input type='text' name='character_name' />
+        <button onClick={searchCharacter}>캐릭터 정보 가져오기</button><br />
+      </div>
+      <div className="row-span-2 bg-green-100">
+        캐릭 정보
+      </div>
+    </div>
   );
 };
 
