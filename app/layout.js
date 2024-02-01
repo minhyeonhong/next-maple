@@ -8,8 +8,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="font-['LINESeedKR-Rg']">
-      <body>
+    <html lang="en">
+      <body className="font-['LINESeedKR-Rg']">
         <Layout>{children}</Layout>
       </body>
     </html>
