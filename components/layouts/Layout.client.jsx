@@ -20,12 +20,12 @@ const Layout = ({ children }) => {
     }, [isDesktop, isTablet, isMobile]);
 
     return (
-        <>
+        <div style={{ width: '100%', height: `${100 * vh}px`, backgroundColor:'#F0F1F3'}}>
         {/* {type.desktop && <div style={{ width: '100%', height: `${100 * vh}px`}} className={styles['desktop-layout']}>desktop{children}</div>} */}
-            {type.desktop && <Desktop vh={100 * vh} >{children}</Desktop>}
-            {type.tablet  && <Tablet vh={100 * vh} >{children}</Tablet>}
-            {type.mobile  && <Mobile vh={100 * vh} >{children}</Mobile>}
-        </>
+            {type.desktop && <Desktop>{children}</Desktop>}
+            {type.tablet  && <Tablet>{children}</Tablet>}
+            {type.mobile  && <Mobile>{children}</Mobile>}
+        </div>
     );
 };
 
