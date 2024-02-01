@@ -1,6 +1,6 @@
 'use client'
 
-const Tablet = ({ vh, children }) => {
+const Tablet = ({ children }) => {
     return (
         <div>
             { children }
