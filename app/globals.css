@@ -71,13 +71,9 @@ table {
 			-webkit-text-fill-color: #22211F; 
 			font-weight: 700;
 			font-size: 1.125rem;
-		}
-		&:-webkit-autofill:focus {
-			-webkit-box-shadow: 0 0 0 1000px #FAFAFA inset;
-			-webkit-text-fill-color: #22211F; 
-			font-weight: 700;
-			font-size: 1.125rem;
-			border: solid 3px #22211F;
+			&:focus {
+				border: solid 3px #22211F;
+			}
 		}
 	}
 }
