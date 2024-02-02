@@ -55,3 +55,29 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+@layer components {
+	.input-autofill {
+		@apply bg-[#FAFAFA] 
+		text-[#22211F] 
+		placeholder:text-[#767676]
+		focus:bg-[#FFFFFF] 
+		focus:outline-none
+		focus:border-solid 
+		focus:border-[3px] 
+		focus:border-[#22211F]; 
+		&:-webkit-autofill{
+			-webkit-box-shadow: 0 0 0 1000px #FAFAFA inset;
+			-webkit-text-fill-color: #22211F; 
+			font-weight: 700;
+			font-size: 1.125rem;
+		}
+		&:-webkit-autofill:focus {
+			-webkit-box-shadow: 0 0 0 1000px #FAFAFA inset;
+			-webkit-text-fill-color: #22211F; 
+			font-weight: 700;
+			font-size: 1.125rem;
+			border: solid 3px #22211F;
+		}
+	}
+}
