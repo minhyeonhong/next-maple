@@ -1,4 +1,4 @@
-import './globals.css'
+import './globals.css';
 import Layout from "@/components/layouts/Layout.client";
 import ReactQueryProviders from '@/components/providers/ReactQueryProviders.client';
 

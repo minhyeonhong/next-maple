@@ -21,7 +21,6 @@ const Layout = ({ children }) => {
 
     return (
         <div style={{ width: '100%', height: `${100 * vh}px`, backgroundColor:'#F0F1F3'}}>
-        {/* {type.desktop && <div style={{ width: '100%', height: `${100 * vh}px`}} className={styles['desktop-layout']}>desktop{children}</div>} */}
             {type.desktop && <Desktop>{children}</Desktop>}
             {type.tablet  && <Tablet>{children}</Tablet>}
             {type.mobile  && <Mobile>{children}</Mobile>}
