@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { app } from '@/axios/app';
 import SearchSVG from "@/public/assets/character/search.svg";
+import SearchCansleSVG from "@/public/assets/character/search_cansle.svg";
+import InputSearch from "../common/InputSearch.client";
 
 const Character = () => {
 
@@ -14,19 +16,16 @@ const Character = () => {
       const response = await app.post('/api/character/search', { character_name: characterName });
       return response.data.character.data;
     },
-    enabled: !!characterName,  // characterName이 있을 때만 쿼리 실행
+    enabled: false,  // characterName이 있을 때만 쿼리 실행
   });
 
   const searchCharacter = async () => {
-    // name이 "character_name"인 input 요소 선택
-    const character_name = document.querySelector('input[name="character_name"]').value;
-
-    if (!character_name) {
+    if (!characterName) {
       alert('캐릭터명을 입력해 주세요.');
       return;
     }
 
-    setCharacterName(character_name);
+    await queryClient.prefetchQuery(['character', characterName]);
   }
 
   useEffect(() => {
@@ -34,11 +33,12 @@ const Character = () => {
   }, [character])
 
   return (
-    <div className="h-full grid grid-rows-4">
+    <div className="h-full grid grid-rows-6">
       <div className="row-span-1 flex flex-col justify-center items-center bg-red-100 ">
         로고
+        <InputSearch input={characterName} setInput={setCharacterName} inputEnter={searchCharacter} />
       </div>
-      <div className="row-span-1 flex flex-col items-center">
+      <div className="row-span-2 flex flex-col items-center">
 
         <div className="w-80 relative mt-2 rounded-xl shadow-sm ">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
@@ -49,7 +49,7 @@ const Character = () => {
             placeholder="캐릭터 닉네임을 입력해 주세요." />
         </div>
       </div>
-      <div className="row-span-2 flex flex-col items-center bg-green-100">
+      <div className="row-span-3 flex flex-col items-center bg-green-100">
         {
           isLoading && <div>Loading...</div>
         }
