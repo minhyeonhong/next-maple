@@ -28,6 +28,11 @@ const Character = () => {
     await queryClient.prefetchQuery(['character', characterName]);
   }
 
+  const sqliteTest = async () => {
+    const res = await app.get('/api/sqlite');
+    console.log(res);
+  }
+
   useEffect(() => {
     console.log(character);
   }, [character])
@@ -36,6 +41,7 @@ const Character = () => {
     <div className="h-full grid grid-rows-6">
       <div className="row-span-1 flex flex-col justify-center items-center bg-red-100 ">
         로고
+        <button onClick={sqliteTest}>sqlite test</button>
         <InputSearch input={characterName} setInput={setCharacterName} inputEnter={searchCharacter} />
       </div>
       <div className="row-span-2 flex flex-col items-center">
