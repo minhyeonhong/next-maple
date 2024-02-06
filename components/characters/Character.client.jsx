@@ -20,6 +20,8 @@ const Character = () => {
   });
 
   const searchCharacter = async () => {
+    //const character_name = document.querySelector('input[name="character_name"]').value;
+
     if (!characterName) {
       alert('캐릭터명을 입력해 주세요.');
       return;

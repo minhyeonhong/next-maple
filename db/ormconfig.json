@@ -1,0 +1,7 @@
+{
+    "type": "better-sqlite3",
+    "database": "./sqlite/maple.sqlite",
+    "entities": ["../entities/*.{js,ts}"],
+    "synchronize": true,
+    "logging": true
+}
