@@ -11,14 +11,17 @@
   "dependencies": {
     "@tanstack/react-query": "^5.17.10",
     "axios": "^1.6.5",
+    "better-sqlite3": "^9.4.0",
     "lodash": "^4.17.21",
     "lowdb": "^7.0.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-responsive": "^9.0.2",
+    "reflect-metadata": "^0.2.1",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
