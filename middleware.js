@@ -1,24 +1,35 @@
 import { NextResponse } from "next/server";
 
-const allowedIPs = ["172.30.1.46"]; // 허용할 IP 주소 목록
+const allowedIPs = ["172.30.1.46", "::1"]; // 허용할 IP 주소 목록
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "http://localhost:7000",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-};
+const allowedOrigins = [
+  'http://localhost:7000',
+  // 다른 허용할 Origin을 여기에 추가
+];
 
 export function middleware(request) {
-  // 요청의 IP 주소 얻기 (X-Forwarded-For 헤더 사용)
-  const ip = request.headers.get("x-forwarded-for");
-
-  if (request.method === "OPTIONS") {
-    return NextResponse.json({}, { headers: corsHeaders });
-  }
+  const ip = request.headers.get("x-forwarded-for") || request.ip;
+  const requestOrigin = request.headers.get('Origin');
+  let corsHeaders = {
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
 
   // 허용된 IP 목록에 없는 경우 요청 차단
   if (!allowedIPs.includes(ip)) {
-    return new Response("Not allowed", { status: 403 });
+    return NextResponse.json({
+      success: false,
+      message: '꺼져 이 악당아!!',
+    }, { status: 403 });
+  }
+
+  //cors체크
+  if (allowedOrigins.includes(requestOrigin)) {
+    corsHeaders['Access-Control-Allow-Origin'] = requestOrigin;
+  }
+
+  if (request.method === "OPTIONS") {
+    return NextResponse.json({}, { headers: corsHeaders });
   }
 
   const response = NextResponse.next();
