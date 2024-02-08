@@ -6,9 +6,11 @@ import styles from '../styles/Layout.module.css';
 import Desktop from "./Desktop.client";
 import Tablet from "./Tablet.client";
 import Mobile from "./Mobile.client";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const Layout = ({ children }) => {
     const vh = useVh();
+    const {width, height} = useWindowSize();
     const isDesktop = useMediaQuery({ minWidth: 1024 });
     const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
     const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -20,7 +22,7 @@ const Layout = ({ children }) => {
     }, [isDesktop, isTablet, isMobile]);
 
     return (
-        <div style={{ width: '100%', height: `${100 * vh}px`, backgroundColor:'#F0F1F3'}}>
+        <div style={{ width: '100%', height, backgroundColor:'#F0F1F3'}}>
             {type.desktop && <Desktop>{children}</Desktop>}
             {type.tablet  && <Tablet>{children}</Tablet>}
             {type.mobile  && <Mobile>{children}</Mobile>}
