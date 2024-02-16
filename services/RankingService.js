@@ -122,6 +122,114 @@ const classes = [
     '칼리-전체 전직'
 ];
 
+const totalPages = 2980; // 원하는 페이지 수
+const perPage = 500;
+
+const apiRequestBundle = (total, bundleValue) => {
+    const bundles = [];
+    for (let i = 0; i < total; i += bundleValue) {
+        bundles.push(i + bundleValue > total ? total : i + bundleValue);
+    }
+    return bundles;
+}
+
+const fetchAllRankingPages = async () => {
+    try {
+        const apiBundles = apiRequestBundle(totalPages, perPage);
+        console.log("apiBundles");
+        console.log(apiBundles);
+
+        const pageNumbers = apiBundles.map((subArray, index) => {
+            const start = index * perPage + 1;
+            const end = subArray;
+            return Array.from({length: end - start + 1}, (_, index) => start + index);
+        });
+        console.log("pageNumbers");
+        console.log(pageNumbers);
+
+        //=========================================================
+        //타이머 초당 500건씩 api호출하기 위해
+        let index = 0;
+        // let intervalId = setInterval(async () => {
+        //     console.log(index);
+        //     const promises = pageNumbers.map(page => fetchRankingPage(page));
+        //     const results = await Promise.all(promises);
+            
+        //     index++;
+        //     console.log(pageNumbers);
+        // }, 1000);
+
+        // setTimeout(function () {
+        //     clearInterval(intervalId);
+        //     console.log("setInterval 중지");
+        // }, (1000 * (apiBundles.length))); // 10000밀리초(10초) 후에 중지
+
+
+        // const rankTotal = results.length;
+
+        let intervalId = setInterval(async () => {
+            console.log("index");
+            console.log(index);
+            // const promises = pageNumbers[index].map(page => fetchRankingPage(page));
+            // const pageResults = await Promise.all(promises);
+            // results = results.concat(pageResults);
+            
+            index++;
+            if (index >= pageNumbers.length) {
+                clearInterval(intervalId);
+                console.log("setInterval 중지");
+                // console.log("전체 순위 결과:", results);
+                // console.log("총 순위 수:", results.length);
+            }
+        }, 1000);
+        //같은 소스 비교 확인하고 수정 해야함
+        //=========================================================
+        
+
+        // console.log("몫:", quotient); // 출력: 5
+        // console.log("나머지:", remainder); // 출력: 480
+        // console.log("dd:", dd); // 출력: 480
+        // const promises = pageNumbers.map(page => fetchRankingPage(page));
+        // const results = await Promise.all(promises);
+        // const totalPages = results.length;
+        // const perPage = 500;
+
+        // //const test = Array.from({ length: totalPages }, (_, index) => results[index]);
+        // const combinedArray = results.reduce((acc, current) => {
+        //     acc.ranking.push(...current.ranking);
+        //     return acc;
+        // }, { ranking: [] });
+
+        // const quotient = Math.floor(totalPages / perPage);
+        // const remainder = totalPages % perPage;
+
+        // const paging = Array.from({ length: quotient }, (_, index) => (index + 1) * perPage);
+        // if (remainder !== 0) {
+        //     paging.push(
+        //         paging.length === 0 ? remainder :
+        //         paging[paging.length - 1] + remainder
+        //     );
+        // }
+
+        // console.log('All ranking pages:', results);
+        // console.log('totalPages:', combinedArray);
+    } catch (error) {
+        console.error('Error fetching ranking pages:', error);
+    }
+};
+
+const fetchRankingPage = async (page) => {
+
+    const response = await instance.get(`${process.env.REACT_APP_MAPLE_BASE_URL}/maplestory/v1/ranking/overall?date=${today}&page=${page}`, {
+        headers: {
+            "x-nxopen-api-key": process.env.REACT_APP_MAPLE_KEY
+        },
+    });
+
+    const ranking = response.data.ranking;
+    return { ranking };
+}
+
 const api_maple_rankings = async (param) => {
     const params = new URLSearchParams({
         date: today
@@ -152,4 +260,4 @@ const api_maple_rankings = async (param) => {
     });
 }
 
-export { world_names, classes, api_maple_rankings }
+export { world_names, classes, api_maple_rankings, fetchAllRankingPages }
