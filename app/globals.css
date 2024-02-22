@@ -29,7 +29,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 14px;
-	font: 'LINESeedKR-Rg', sans-serif;
+	font-family: 'LINESeedKR-Rg', sans-serif;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
