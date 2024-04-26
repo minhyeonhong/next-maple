@@ -21,6 +21,7 @@
     "reflect-metadata": "^0.2.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
+    "three": "^0.164.1",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {

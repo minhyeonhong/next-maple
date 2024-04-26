@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { app } from '@/axios/app';
 import SearchSVG from "@/public/assets/character/search.svg";
 import SearchCansleSVG from "@/public/assets/character/search_cansle.svg";
@@ -9,6 +9,7 @@ import InputSearch from "../common/InputSearch.client";
 const Character = () => {
 
   const [characterName, setCharacterName] = useState('');
+  const queryClient = useQueryClient();
 
   const { data: character, isError, isLoading } = useQuery({
     queryKey: ['character', characterName],
@@ -27,7 +28,7 @@ const Character = () => {
       return;
     }
 
-    await queryClient.prefetchQuery(['character', characterName]);
+    await queryClient.prefetchQuery({ queryKey: ['character', characterName] });
   }
 
   const sqliteTest = async () => {
