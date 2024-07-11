@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
-const allowedIPs = ["172.30.1.46", "::1"]; // 허용할 IP 주소 목록
+const allowedIPs = ["10.4.17.55", "::1"]; // 허용할 IP 주소 목록
 
 const allowedOrigins = [
-  'http://localhost:7000',
+  'http://localhost:3000',
   // 다른 허용할 Origin을 여기에 추가
 ];
 
